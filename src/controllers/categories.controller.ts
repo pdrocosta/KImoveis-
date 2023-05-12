@@ -1,41 +1,37 @@
 import { Request, Response } from 'express'
-import { TReqPostUser, TUserRes } from '../interfaces/interfaces'
+import { TCategory, TRealEstatesByCategory, TReqPostCategory, TReqPostUser, TResAllCategories, TUserRes } from '../interfaces/interfaces'
+import postCategoryService from '../services/category.services.ts/postCategory.service'
+import getCategoriesService from '../services/category.services.ts/getCategories.service'
+import { Category } from '../entities'
+import getRealEstatesFromCategoryService from '../services/category.services.ts/1getRealEstateByCategory.service'
 
 const postCategoryController = async (
     req: Request,
     res: Response
 ): Promise<Response> => {
-    const categoryData: TReqPostUser = req.body
-    const newUser: TUserRes = await postUserService(userData)
-    return res.status(201).json(newUser)
+    const categoryData: TReqPostCategory = req.body
+    const newCategory: TCategory = await postCategoryService(categoryData)
+    return res.status(201).json(newCategory)
 }
 
-const getUsersController = async (
+const getCategoriesController = async (
     req: Request,
     res: Response
 ): Promise<Response> => {
-    const userData: TUserRes
-        = await getAllUsersService()
-    return res.status(200).json(userData)
+    const categories: Category[]
+        = await getCategoriesService()
+    return res.status(200).json(categories)
 }
 
-const patchUserController = async (
+const getRealEstatesFromCategoryController = async (
     req: Request,
     res: Response
 ): Promise<Response> => {
-    const userID: number = parseInt(req.params.id)
-    const newData = req.body
-    const user = await patchUserService(newData, userID:)
-    return res.status(200).json(user)
+    const id = req.params.id
+    const realEstatesByCategory: TRealEstatesByCategory
+        = await getRealEstatesFromCategoryService(Number(id))
+    return res.status(200).json(realEstatesByCategory)
 }
 
-const deleteUserController = async (
-    req: Request,
-    res: Response
-): Promise<Response> => {
-    const userID: number = parseInt(req.params.id)
-    await deleteUserService(userID)
-    return res.status(204).json()
-}
 
-export { deleteUserController, getUsersController, patchUserController, postUserController}
+export { getCategoriesController, getRealEstatesFromCategoryController, postCategoryController }

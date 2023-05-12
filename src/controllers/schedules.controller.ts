@@ -1,41 +1,29 @@
 import { Request, Response } from 'express'
-import { TReqPostUser, TUserRes } from '../interfaces/interfaces'
+import { TReqSchedule } from '../interfaces/interfaces'
+import postScheduleService from '../services/schedule.services.ts/1postSchedule.service'
+import getAllSchedulesService from '../services/schedule.services.ts/1getAllSchedules.service'
 
-const postUserController = async (
+const postSchedulesController = async (
     req: Request,
     res: Response
 ): Promise<Response> => {
-    const userData: TReqPostUser = req.body
-    const newUser: TUserRes = await postUserService(userData)
-    return res.status(201).json(newUser)
+    const scheduleData: TReqSchedule
+        = req.body
+    const newSchedule = await postScheduleService(res, scheduleData)
+    return res.status(201).json(newSchedule)
 }
 
-const getUsersController = async (
+const getAllSchedulesController = async (
     req: Request,
     res: Response
 ): Promise<Response> => {
-    const userData: TUserRes
-        = await getAllUsersService()
-    return res.status(200).json(userData)
+
+    const id = req.params.id
+    const realEstatesByCategory
+        = await getAllSchedulesService(Number(id))
+    return res.status(200).json(realEstatesByCategory)
+
 }
 
-const patchUserController = async (
-    req: Request,
-    res: Response
-): Promise<Response> => {
-    const userID: number = parseInt(req.params.id)
-    const newData = req.body
-    const user = await patchUserService(newData, userID:)
-    return res.status(200).json(user)
-}
 
-const deleteUserController = async (
-    req: Request,
-    res: Response
-): Promise<Response> => {
-    const userID: number = parseInt(req.params.id)
-    await deleteUserService(userID)
-    return res.status(204).json()
-}
-
-export { deleteUserController, getUsersController, patchUserController, postUserController}
+export { getAllSchedulesController, postSchedulesController }

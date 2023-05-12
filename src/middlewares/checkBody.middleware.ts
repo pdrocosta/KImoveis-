@@ -4,12 +4,12 @@ import jwt from 'jsonwebtoken'
 import { ZodTypeAny } from 'zod'
 import { AppError } from '../error'
 
-const body =
+export const body =
     (schema: ZodTypeAny) =>
-    (req: Request, resp: Response, next: NextFunction) => {
-        const validatedData = schema.parse(req.body)
+        (req: Request, resp: Response, next: NextFunction) => {
+            const validatedData = schema.parse(req.body)
 
-        req.body = validatedData
+            req.body = validatedData
 
-        return next()
-    }
+            return next()
+        }

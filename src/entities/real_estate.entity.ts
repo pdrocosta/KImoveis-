@@ -1,40 +1,48 @@
+import Address from "./addresses.entity"
+import Category from "./categories.entity"
 import {
-    Column,
-    CreateDateColumn,
-    DeleteDateColumn,
-    Entity,
-    ManyToMany,
-    ManyToOne,
-    OneToMany,
-    OneToOne,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
-} from 'typeorm'
-import { Category } from './categories.entity'
-import { Schedule } from './schedules.entity'
-import { scheduler } from 'timers/promises'
+   Column,
+   OneToOne,
+   PrimaryGeneratedColumn,
+   CreateDateColumn,
+   Entity,
+   ManyToOne,
+   UpdateDateColumn,
+   JoinColumn,
+   OneToMany,
+} from "typeorm"
+import { Schedule } from "./schedules.entity"
+
 
 @Entity("real_estate")
+
 export class RealEstate {
+   @PrimaryGeneratedColumn("increment")
+   id: number
 
-    @PrimaryGeneratedColumn('increment')
-    id: number
+   @Column({ type: "boolean", default: false })
+   sold: boolean
 
-    @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
-    sold: number;
+   @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
+   value: number | string
 
-    @Column({ type: 'int' })
-    size: number;
+   @Column({ type: "integer" })
+   size: number
 
-    @CreateDateColumn({ type: 'date', nullable: true })
-    createdAt: Date;
+   @CreateDateColumn({ type: "date" })
+   createdAt: Date
 
-    @UpdateDateColumn({ type: 'varchar', length: 120 })
-    updatedAt: string;
+   @UpdateDateColumn({ type: "date" })
+   updatedAt: Date
 
-    @OneToMany(() => Schedule, (schedules) => schedules.realEstateId)
-    realEstateId: Schedule[]
+   @OneToOne(() => Address, (Address) => Address.realEstate)
+   @JoinColumn()
+   address: Address
 
-    @ManyToMany(() => Category, (categories) => categories.id)
-    categoryId: Category[]
+   @ManyToOne(() => Category)
+   category: Category
+
+   @OneToMany(() => Schedule, (Schedule) => Schedule.realEstate)
+   schedules: Schedule[]
 }
+

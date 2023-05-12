@@ -1,12 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
 import 'dotenv/config'
 import jwt from 'jsonwebtoken'
-import { ZodTypeAny } from 'zod'
 import { AppError } from '../error'
 
-
-
-const token = (
+const getTokenMiddleware = (
     req: Request,
     resp: Response,
     next: NextFunction
@@ -22,14 +19,11 @@ const token = (
     jwt.verify(token, process.env.SECRET_KEY!, (error: any, decoded: any) => {
         if (error) throw new AppError(error.message, 401)
 
-        resp.locals.id = decoded.sub
+        resp.locals.id = decoded.id
         resp.locals.admin = decoded.admin
 
         return next()
     })
 }
 
-export default {
-    body,
-    token
-}
+export default getTokenMiddleware;

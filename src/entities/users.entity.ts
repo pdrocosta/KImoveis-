@@ -1,4 +1,8 @@
+import "reflect-metadata"
+
 import {
+    BeforeInsert,
+    BeforeUpdate,
     Column,
     CreateDateColumn,
     DeleteDateColumn,
@@ -8,6 +12,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm'
 import { Schedule } from './schedules.entity'
+import { getRounds, hashSync } from "bcryptjs"
 
 @Entity("users")
 export class User {
@@ -19,7 +24,7 @@ export class User {
     name: string
 
     @Column({ type: 'varchar', length: 45, unique: true })
-    email: string | undefined | null
+    email: string
 
     @Column({ type: 'boolean', default: false })
     admin: boolean
@@ -27,16 +32,26 @@ export class User {
     @Column({ type: 'varchar', length: 120 })
     password: string
 
-    @CreateDateColumn({ type: 'date', nullable: true })
-    createdAt: string
+    @CreateDateColumn({ type: 'date' })
+    createdAt: Date
 
-    @UpdateDateColumn({ type: 'varchar', length: 120 })
-    updatedAt: string
+    @UpdateDateColumn({ type: 'date', nullable: true })
+    updatedAt?: string
 
-    @DeleteDateColumn({ type: 'date', nullable: true })
-    deletedAt: string
+    @DeleteDateColumn({ nullable: true })
+    deletedAt?: Date
 
-    @OneToMany(() => Schedule, (schedules) => schedules.userId)
-    schedules: Schedule
+    @OneToMany(() => Schedule, (schedules) => schedules.user)
+    schedule: Schedule
 
+    @BeforeInsert()
+    @BeforeUpdate()
+    transformPasswordHash() {
+        const encrypted = getRounds(this.password);
+
+        if (!encrypted) {
+            this.password = hashSync(this.password, 10);
+        }
+    }
 }
+

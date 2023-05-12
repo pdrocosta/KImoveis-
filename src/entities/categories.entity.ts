@@ -1,23 +1,21 @@
 import {
     Column,
-    CreateDateColumn,
-    DeleteDateColumn,
     Entity,
     OneToMany,
     PrimaryGeneratedColumn,
-    UpdateDateColumn,
-} from 'typeorm'
-
-@Entity("categories")
-export class Category {
-
-    @PrimaryGeneratedColumn('increment')
-    id: number
-
-    @Column({ type: 'varchar', length: 45 })
-    name: Date
-
-    @OneToMany(() => Category, (categories) => categories.categoryId)
-    categoryId: number
-
-}
+  } from "typeorm";
+import { RealEstate } from "./real_estate.entity";
+  
+  @Entity("categories")
+  class Category {
+    @PrimaryGeneratedColumn("increment")
+    id: number;
+  
+    @Column({ type: "varchar", length: 45, unique: true })
+    name: string;
+  
+    @OneToMany(() => RealEstate, (RealEstate) => RealEstate.category)
+    realEstate: RealEstate[];
+  }
+  
+  export default Category;

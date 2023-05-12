@@ -4,18 +4,18 @@ export const realEstateSchema = z.object({
     value: z.number().default(0),
     size: z.number(),
     sold: z.boolean().default(false),
-    createdAt: z.date().nullable(),
-    updatedAt: z.string().max(120),
-    realEstateId:z.number(),
-    categoryId: z.number(),
-    
+    createdAt: z.date(),
+    updatedAt: z.string().nullish(),
+    deletedAt: z.string().max(120).nullish(),
+    realEstate: z.number(),
+    category: z.number(),
+
 });
 
-export const postRealEstateSchemaRequest =z.object({
-    id: z.number(),
+export const postRealEstateSchemaRequest = z.object({
     value: z.number().default(0),
     size: z.number(),
-    categoryId: z.number(),
+    category: z.number(),
     adress: z.object({
         street: z.string().max(45),
         zipCode: z.string().max(8),

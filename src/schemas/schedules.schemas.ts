@@ -2,10 +2,12 @@ import { z } from "zod";
 
 export const scheduleSchema = z.object({
     id: z.number(),
-    date: z.string().max(45),
+    date: z.date(),
     hour: z.string(),
-    userId: z.number(),
-    realEstateId: z.number(),
+    user: z.number(),
+    realEstate: z.number(),
 });
+
+export const postReqScheduleSchema = scheduleSchema.omit({id:true})
 
 export const schedulesResponseSchema = z.array(scheduleSchema)

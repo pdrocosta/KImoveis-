@@ -1,5 +1,9 @@
 import { Request, Response } from 'express'
-import { TReqPostUser, TUserRes } from '../interfaces/interfaces'
+import { TReqPatchUser, TReqPostUser, TRespAllUsers, TUserRes } from '../interfaces/interfaces'
+import postUserService from '../services/user.services.ts/postUser.service'
+import { patchUserService } from '../services/user.services.ts/patchUser.service'
+import deleteUserService from '../services/user.services.ts/deleteUser.service'
+import getAllUsersService from '../services/user.services.ts/getAllUsers.service'
 
 const postUserController = async (
     req: Request,
@@ -14,9 +18,9 @@ const getUsersController = async (
     req: Request,
     res: Response
 ): Promise<Response> => {
-    const userData: TUserRes
+    const usersData: TRespAllUsers
         = await getAllUsersService()
-    return res.status(200).json(userData)
+    return res.status(200).json(usersData)
 }
 
 const patchUserController = async (
@@ -24,8 +28,9 @@ const patchUserController = async (
     res: Response
 ): Promise<Response> => {
     const userID: number = parseInt(req.params.id)
-    const newData = req.body
-    const user = await patchUserService(newData, userID:)
+    const newData: TReqPatchUser = req.body
+    const loggedId = res.locals.id
+    const user = await patchUserService(newData, userID, loggedId)
     return res.status(200).json(user)
 }
 
@@ -38,4 +43,4 @@ const deleteUserController = async (
     return res.status(204).json()
 }
 
-export { deleteUserController, getUsersController, patchUserController, postUserController}
+export { deleteUserController, getUsersController, patchUserController, postUserController }
