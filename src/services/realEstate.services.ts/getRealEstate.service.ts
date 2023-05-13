@@ -11,6 +11,7 @@ const getAllRealEstatesService = async (): Promise<RealEstate[]> => {
             address: true,
         }
     });
+    console.log
     console.log(allRealEstates)
     return allRealEstates;
 }

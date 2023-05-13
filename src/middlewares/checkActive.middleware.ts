@@ -19,9 +19,6 @@ export const checkActive = async (req: Request, resp: Response, next: NextFuncti
     if (id) {
         const user = await userRepo.findOneBy({ id: Number(id) })
         resp.locals.user = user
-      /*  if (user!) {
-            throw new AppError("User not found", 404);
-        }*/
         if (user!.deletedAt) {
             throw new AppError("User not found", 404);
         }
@@ -41,16 +38,5 @@ export const checkActive = async (req: Request, resp: Response, next: NextFuncti
 
         return next()
     }
-
-
-
-    const user = await userRepo.findOneBy({ id: Number(id) })
-
-    if (user?.deletedAt) {
-        throw new AppError("User not found", 404)
-    }
-
-    resp.locals.user = user
-
     return next()
 }

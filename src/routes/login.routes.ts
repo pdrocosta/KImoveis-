@@ -6,7 +6,7 @@ import { loginController } from '../controllers/login.controller'
 
 const loginRouter: Router = Router()
 
-loginRouter.post("", body(loginSchema), checkActive,
+loginRouter.post("", body(loginSchema), 
     loginController
 )
 

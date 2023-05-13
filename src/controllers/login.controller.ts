@@ -8,8 +8,8 @@ const loginController = async (
 ): Promise<Response> => {
     const userData: TReqLogin = req.body
     console.log(userData)
-    const login = await loginService(res, userData)
-    return res.status(201).json(login)
+    const token = await loginService(res, userData)
+    return res.status(200).json({ token })
 }
 
 

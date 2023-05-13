@@ -16,7 +16,7 @@ const checkSchedule = async (
   next: NextFunction
 ): Promise<void> => {
   const { date, hour, realEstateId } = req.body;
-  const userId: number = res.locals.userId;
+  const userId: number = res.locals.id;
   const verifyHour: number = parseInt(hour);
   const newDate: Date = new Date(date);
   const day: number = newDate.getDay();
@@ -29,10 +29,10 @@ const checkSchedule = async (
     throw new AppError("Invalid hour, available times are 8AM to 18PM", 400);
   }
 
-  const scheduleRepo: Repository<Schedule> =
+  const schedulesRepo: Repository<Schedule> =
     AppDataSource.getRepository(Schedule);
 
-  const scheduleExists: Schedule | null = await scheduleRepo
+  const schedule: Schedule | null = await schedulesRepo
     .createQueryBuilder("schedule")
     .innerJoinAndSelect("schedule.user", "user")
     .innerJoinAndSelect("schedule.realEstate", "realEstate")
@@ -43,20 +43,13 @@ const checkSchedule = async (
     })
     .getOne();
 
-  if (scheduleExists) {
-    if (scheduleExists.user.id == userId) {
-      throw new AppError(
-        "User schedule to this real estate at this date and time already exists",
-        409
-      );
-    } else {
+  if (schedule) {
       throw new AppError(
         "Schedule to this real estate at this date and time already exists",
         409
       );
     }
-  }
-
+  
   return next();
 };
 

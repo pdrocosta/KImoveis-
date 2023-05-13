@@ -13,6 +13,8 @@ const postScheduleService = async (
     const userId = res.locals.id
     const usersRepo: Repository<User> = AppDataSource.getRepository(User);
 
+    console.log(userId, realEstate, newScheduleData)
+
     const realEstatesRepo: Repository<RealEstate> =
         AppDataSource.getRepository(RealEstate);
 
@@ -20,7 +22,7 @@ const postScheduleService = async (
     const realEstateData: RealEstate | null = await realEstatesRepo.findOne({
         where: { id: realEstate },
     });
-
+    console.log(realEstateData)
     const schedulesRepo: Repository<Schedule> =
         AppDataSource.getRepository(Schedule);
 
@@ -28,10 +30,12 @@ const postScheduleService = async (
     const userData: User | null = await usersRepo.findOne({
         where: { id: userId },
     });
+    console.log(userData)
 
     if (!realEstateData || !userData) {
         throw new Error("User or real estate not found");
     }
+    console.log(userData)
 
     const newSchedule: Schedule = schedulesRepo.create({
         ...newScheduleData,
@@ -39,6 +43,7 @@ const postScheduleService = async (
         realEstate: realEstateData,
     });
     await schedulesRepo.save(newSchedule);
+    console.log(newSchedule)
 
     return newSchedule;
 };

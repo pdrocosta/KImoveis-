@@ -17,7 +17,7 @@ const getAllRealEstatesController = async (
     res: Response
 ): Promise<Response> => {
     const allRealEstates = await getAllRealEstatesService()
-    return res.status(201).json(allRealEstates)
+    return res.status(200).json(allRealEstates)
 }
 
 

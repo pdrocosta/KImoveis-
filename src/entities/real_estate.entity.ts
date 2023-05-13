@@ -32,8 +32,8 @@ export class RealEstate {
    @CreateDateColumn({ type: "date" })
    createdAt: Date
 
-   @UpdateDateColumn({ type: "date" })
-   updatedAt: Date
+   @UpdateDateColumn({ type: "date", nullable: true })
+   updatedAt?: Date
 
    @OneToOne(() => Address, (Address) => Address.realEstate)
    @JoinColumn()

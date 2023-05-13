@@ -5,7 +5,7 @@ import { User } from '../../entities';
 import { AppError } from '../../error';
 import { compareSync } from 'bcryptjs';
 import jwt from "jsonwebtoken";
-import { Response, response } from 'express';
+import { Response } from 'express';
 
 const loginService =async (res: Response, userData: TReqLogin): Promise<string> => {
     const userRepo: Repository<User> = AppDataSource.getRepository(User);
