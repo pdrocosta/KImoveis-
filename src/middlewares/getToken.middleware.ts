@@ -9,19 +9,20 @@ const getTokenMiddleware = (
     next: NextFunction
 ) => {
     let token: string | undefined = req.headers.authorization
-
+    console.log(token)
     if (!token) {
-        throw new AppError('Token is missing', 401)
+        throw new AppError('Missing bearer token', 401)
     }
 
     token = token.split(' ')[1]
+    console.log(token)
 
     jwt.verify(token, process.env.SECRET_KEY!, (error: any, decoded: any) => {
         if (error) throw new AppError(error.message, 401)
 
-        resp.locals.id = decoded.id
+        resp.locals.id = decoded.sub
         resp.locals.admin = decoded.admin
-
+        console.log(resp.locals)
         return next()
     })
 }

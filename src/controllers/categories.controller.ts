@@ -3,7 +3,7 @@ import { TCategory, TRealEstatesByCategory, TReqPostCategory, TReqPostUser, TRes
 import postCategoryService from '../services/category.services.ts/postCategory.service'
 import getCategoriesService from '../services/category.services.ts/getCategories.service'
 import { Category } from '../entities'
-import getRealEstatesFromCategoryService from '../services/category.services.ts/1getRealEstateByCategory.service'
+import getRealEstatesFromCategoryService from '../services/category.services.ts/getAllRealEstates.service'
 
 const postCategoryController = async (
     req: Request,
@@ -28,6 +28,8 @@ const getRealEstatesFromCategoryController = async (
     res: Response
 ): Promise<Response> => {
     const id = req.params.id
+    console.log(id)
+
     const realEstatesByCategory: TRealEstatesByCategory
         = await getRealEstatesFromCategoryService(Number(id))
     return res.status(200).json(realEstatesByCategory)

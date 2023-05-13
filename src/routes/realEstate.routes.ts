@@ -12,7 +12,7 @@ realEstateRouter.post("", body(postRealEstateSchemaRequest), getTokenMiddleware,
     createRealEstateController
 )
 
-realEstateRouter.get("", adminMiddleware,
+realEstateRouter.get("",
     getAllRealEstatesController
 )
 

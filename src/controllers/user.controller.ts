@@ -30,6 +30,7 @@ const patchUserController = async (
     const userID: number = parseInt(req.params.id)
     const newData: TReqPatchUser = req.body
     const loggedId = res.locals.id
+    console.log(userID,newData, loggedId)
     const user = await patchUserService(newData, userID, loggedId)
     return res.status(200).json(user)
 }
@@ -39,6 +40,7 @@ const deleteUserController = async (
     res: Response
 ): Promise<Response> => {
     const userID: number = parseInt(req.params.id)
+    console.log(userID)
     await deleteUserService(userID)
     return res.status(204).json()
 }

@@ -7,6 +7,7 @@ const loginController = async (
     res: Response
 ): Promise<Response> => {
     const userData: TReqLogin = req.body
+    console.log(userData)
     const login = await loginService(res, userData)
     return res.status(201).json(login)
 }

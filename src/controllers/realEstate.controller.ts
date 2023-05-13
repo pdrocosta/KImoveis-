@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import postRealEstateService from '../services/realEstate.services.ts/1postRealEstate.service'
+import postRealEstateService from '../services/realEstate.services.ts/postRealEstate.service'
 import getAllRealEstatesService from '../services/realEstate.services.ts/getRealEstate.service'
 import { TReqRealEstate } from '../interfaces/interfaces'
 

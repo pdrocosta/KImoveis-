@@ -11,7 +11,7 @@ export const checkAddress = async (
 ): Promise<void> => {
     const { city, state, street, zipCode, number } = req.body.address;
     const addressRepo: Repository<Address> = AppDataSource.getRepository(Address);
-
+    console.log(city, state, street, zipCode, number)
 
     const existingAddress = await addressRepo.findOne({
         where: {
@@ -22,6 +22,7 @@ export const checkAddress = async (
             number: number || "",
         },
     });
+    console.log(existingAddress)
 
     if (existingAddress) {
         throw new AppError("Address already exists", 409);

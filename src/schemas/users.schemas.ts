@@ -21,11 +21,15 @@ export const userSchemaRequest = userSchema
 
 
 export const userSchemaUpdateRequest = userSchemaRequest
-    .omit({ admin: true, id: true })
+    .omit({ admin: true})
+    .partial()
+
+    export const loginSchemaUpdateRequest = userSchemaRequest
+    .omit({ admin: true, name: true })
     .partial()
 
 export const userSchemaResponse = userSchema.omit({
     password: true,
 })
 
-export const usersSchemaResponse = z.array(userSchema)
+export const usersSchemaResponse = z.array(userSchemaResponse)

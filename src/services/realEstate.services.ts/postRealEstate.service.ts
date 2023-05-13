@@ -10,30 +10,38 @@ const postRealEstateService = async (
     realEstateData: TReqRealEstate
 ): Promise<RealEstate> => {
     const { adress, category, ...newInfos } = realEstateData;
-
+    console.log( adress, category, newInfos)
     const addressRepo: Repository<Address> = AppDataSource.getRepository(Address);
 
     const categoriesRepo: Repository<Category> =
         AppDataSource.getRepository(Category);
 
-    const realEstateRepo: Repository<RealEstate> =
+    const realEstatesRepo: Repository<RealEstate> =
         AppDataSource.getRepository(RealEstate);
 
     const categoryId: Category | null = await categoriesRepo.findOneBy({
-        id: category,
+       id: category,
     });
 
+    console.log( categoryId)
 
     const newAddress: Address = addressRepo.create(adress);
     await addressRepo.save(newAddress);
+    console.log( newAddress)
 
-    const createRealEstate: RealEstate = realEstateRepo.create({
+    if (!categoryId) {
+        throw new AppError("Category not found", 404);
+    }
+
+    const createRealEstate: RealEstate = realEstatesRepo.create({
         ...newInfos,
         address: newAddress,
-        category: categoryId!,
+        category: categoryId,
     });
+    console.log( createRealEstate)
 
-    const newRealEstate: RealEstate = await realEstateRepo.save(createRealEstate);
+    const newRealEstate: RealEstate = await realEstatesRepo.save(createRealEstate);
+    console.log( newRealEstate)
 
     return newRealEstate;
 };

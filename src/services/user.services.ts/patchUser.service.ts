@@ -11,17 +11,14 @@ export const patchUserService = async (
   loggedId: number,
 ): Promise<TUserRes> => {
 
-  if (userID !== loggedId) {
-    throw new AppError('Insufficient permission', 403)
-  }
-
   const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
   const oldUserData: User | null = await userRepo.findOneBy({
     id: userID,
   });
-
+console.log(oldUserData)
   const newUserInfos = ({ ...oldUserData });
+  console.log(newUserInfos)
 
   if (userData.name) {
     newUserInfos.name = userData.name
@@ -33,11 +30,13 @@ export const patchUserService = async (
     newUserInfos.password = userData.password
   }
 
+
   const saveNewUser = userRepo.create(newUserInfos)
+  console.log(saveNewUser)
 
   await userRepo.save(saveNewUser);
 
   const returnUser = userSchemaResponse.parse(newUserInfos);
-
+  console.log(returnUser)
   return returnUser;
 };

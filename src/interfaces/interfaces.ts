@@ -10,7 +10,7 @@ type TReqPostUser = z.infer<typeof userSchemaRequest>
 type TUserRes = z.infer<typeof userSchemaResponse>
 type TRespAllUsers = z.infer<typeof usersSchemaResponse>
 type TReqPatchUser = z.infer<typeof userSchemaUpdateRequest>
-
+type TLoginUser = z.infer
 
 type TReqLogin = z.infer<typeof loginSchema>
 

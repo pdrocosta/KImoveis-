@@ -13,7 +13,7 @@ const loginService =async (res: Response, userData: TReqLogin): Promise<string> 
     const user: User | null = await userRepo.findOneBy({
       email: userData.email,
     });
-  
+    console.log(user)
     if (!user) {
       throw new AppError("Invalid credentials", 401);
   }
@@ -23,7 +23,8 @@ const loginService =async (res: Response, userData: TReqLogin): Promise<string> 
   }
   
     const verifyPassword = compareSync(userData.password, user.password);
-  
+    console.log(verifyPassword)
+
     if (!verifyPassword) {
       throw new AppError("Invalid credentials", 401);
     }
@@ -39,6 +40,7 @@ const loginService =async (res: Response, userData: TReqLogin): Promise<string> 
         subject: String(user.id),
       }
   );
+  console.log(token)
 
 
   

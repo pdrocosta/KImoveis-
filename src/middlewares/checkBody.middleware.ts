@@ -8,7 +8,7 @@ export const body =
     (schema: ZodTypeAny) =>
         (req: Request, resp: Response, next: NextFunction) => {
             const validatedData = schema.parse(req.body)
-
+            console.log(req.body, validatedData)
             req.body = validatedData
 
             return next()
