@@ -6,8 +6,6 @@ import { AppDataSource } from "../data-source";
 
 export const checkUserId = async (req: Request, resp: Response, next: NextFunction): Promise<void> => {
     const id: number = parseInt(req.params.id);
-    console.log(id);
-    console.log(req.body.email);
 
     const userRepo: Repository<User> = AppDataSource.getRepository(User);
 

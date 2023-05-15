@@ -19,7 +19,6 @@ const getAllSchedulesController = async (
     res: Response
 ): Promise<Response<RealEstate | null>> => {
     const id = req.params.id
-    console.log(id)
     const realEstatesByCategory
         = await getAllSchedulesService(Number(id))
 

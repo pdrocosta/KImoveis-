@@ -11,8 +11,6 @@ import { Repository } from 'typeorm'
 
 export const checkActive = async (req: Request, resp: Response, next: NextFunction): Promise<void> => {
     const id: number = parseInt(req.params.id);
-    console.log(id)
-    console.log(req.body.email)
 
     const userRepo: Repository<User> =
         AppDataSource.getRepository(User);
@@ -20,19 +18,16 @@ export const checkActive = async (req: Request, resp: Response, next: NextFuncti
         const user = await userRepo.findOneBy({ id: Number(id) })
         resp.locals.user = user
     if (user?.deletedAt) {
-        console.log()
         throw new AppError("User not found", 404);
     }
     if (id!) {
         const user = await userRepo.findOneBy({ email: req.body.email })
-        console.log(user)
         resp.locals.user = user
         if (user?.deletedAt) {
             throw new AppError("User not found", 404)
         }
 
         resp.locals.user = user
-        console.log(resp.locals)
 
 
     }

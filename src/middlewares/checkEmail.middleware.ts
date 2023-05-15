@@ -13,9 +13,7 @@ export const checkEmail = async (req: Request, resp: Response, next: NextFunctio
     const userRepo: Repository<User> =
         AppDataSource.getRepository(User);
 
-    console.log(req.body.email)
     const findUserByEmail: User | null = await userRepo.findOneBy({ email: req.body.email })
-    console.log(findUserByEmail)
 
     if (findUserByEmail) {
         throw new AppError("Email already exists", 409)

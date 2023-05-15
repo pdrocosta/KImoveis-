@@ -7,7 +7,6 @@ const adminMiddleware = (
     next: NextFunction
 ): void => {
     const admin = res.locals.admin
-    console.log(admin)
     if (!admin) {
         throw new AppError('Insufficient permission', 403)
     }

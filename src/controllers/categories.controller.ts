@@ -29,7 +29,6 @@ const getRealEstatesFromCategoryController = async (
     res: Response
 ): Promise<Response> => {
     const id = req.params.id
-    console.log(id)
 
     const realEstatesByCategory
         = await getAllRealEstatesFromCategoryService(Number(id))

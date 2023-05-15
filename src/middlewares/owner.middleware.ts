@@ -9,7 +9,6 @@ const ownerMiddleware = (
     const userID: number = parseInt(req.params.id)
     const loggedId = res.locals.id
     const admin = res.locals.admin
-    console.log(admin)
     if (!admin) {
         if (userID !== loggedId) {
             throw new AppError('Insufficient permission', 403)

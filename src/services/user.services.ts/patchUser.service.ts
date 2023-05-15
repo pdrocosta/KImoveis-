@@ -16,9 +16,7 @@ export const patchUserService = async (
   const oldUserData: User | null = await userRepo.findOneBy({
     id: userID,
   });
-console.log(oldUserData)
   const newUserInfos = ({ ...oldUserData });
-  console.log(newUserInfos)
 
   if (userData.name) {
     newUserInfos.name = userData.name
@@ -33,11 +31,9 @@ console.log(oldUserData)
 
 
   const saveNewUser = userRepo.create(newUserInfos)
-  console.log(saveNewUser)
 
   await userRepo.save(saveNewUser);
 
   const returnUser = userSchemaResponse.parse(newUserInfos);
-  console.log(returnUser)
   return returnUser;
 };

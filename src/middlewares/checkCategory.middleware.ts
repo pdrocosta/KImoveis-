@@ -11,12 +11,10 @@ import { Repository } from 'typeorm'
 
 export const checkCategoryName = async (req: Request, resp: Response, next: NextFunction): Promise<void> => {
     const name = req.body.name
-    console.log(name)
     const categoryRepo: Repository<Category> =
         AppDataSource.getRepository(Category);
 
     const findCategory: Category | null = await categoryRepo.findOneBy({ name: name })
-    console.log(findCategory)
 
     if (findCategory) {
         throw new AppError("Category already exists", 409)

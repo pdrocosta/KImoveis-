@@ -7,7 +7,6 @@ const deleteUserService = async (id: number): Promise<void> => {
   const user: User | null = await userRepo.findOneBy({
     id: Number(id),
   });
-  console.log(user)
   if (user) {
     await userRepo.softRemove(user);
   }
