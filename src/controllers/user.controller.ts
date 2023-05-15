@@ -29,8 +29,7 @@ const patchUserController = async (
 ): Promise<Response> => {
     const userID: number = parseInt(req.params.id)
     const newData: TReqPatchUser = req.body
-    const loggedId = res.locals.id
-    const user = await patchUserService(newData, userID, loggedId)
+    const user = await patchUserService(newData, userID)
     return res.status(200).json(user)
 }
 

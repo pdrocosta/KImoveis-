@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Category, RealEstate } from "../../entities";
+import { Category } from "../../entities";
 import { AppDataSource } from "../../data-source";
 import { realEstatesResponseSchemas } from "../../schemas/realEstate.schema";
 

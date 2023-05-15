@@ -1,14 +1,12 @@
-import { DeepPartial, Repository } from 'typeorm'
+import {  Repository } from 'typeorm'
 import { AppDataSource } from '../../data-source'
 import { TReqPatchUser, TUserRes } from '../../interfaces/interfaces'
 import { User } from '../../entities'
 import { userSchemaResponse, usersSchemaResponse } from '../../schemas/users.schemas'
-import { AppError } from '../../error'
 
 export const patchUserService = async (
   userData: TReqPatchUser,
   userID: number,
-  loggedId: number,
 ): Promise<TUserRes> => {
 
   const userRepo: Repository<User> = AppDataSource.getRepository(User);
@@ -27,8 +25,6 @@ export const patchUserService = async (
   if (userData.password) {
     newUserInfos.password = userData.password
   }
-
-
 
   const saveNewUser = userRepo.create(newUserInfos)
 

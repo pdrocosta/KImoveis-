@@ -1,12 +1,11 @@
 import { Router } from 'express'
-import { checkActive } from '../middlewares/checkActive.middleware'
 import { body } from '../middlewares/checkBody.middleware'
 import { loginSchema } from '../schemas/login.schemas'
 import { loginController } from '../controllers/login.controller'
 
 const loginRouter: Router = Router()
 
-loginRouter.post("", body(loginSchema), 
+loginRouter.post("", body(loginSchema),
     loginController
 )
 

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { TReqSchedule } from '../interfaces/interfaces'
 import postScheduleService from '../services/schedule.services.ts/postSchedule.service'
-import getAllSchedulesService from '../services/schedule.services.ts/1getAllSchedules.service'
+import getAllSchedulesService from '../services/schedule.services.ts/getAllSchedules.service'
 import { RealEstate } from '../entities'
 
 const postSchedulesController = async (

@@ -1,9 +1,8 @@
 import { Request, Response } from 'express'
-import { TCategory, TRealEstatesByCategory, TReqPostCategory, TReqPostUser, TResAllCategories, TUserRes } from '../interfaces/interfaces'
+import { TCategory, TReqPostCategory } from '../interfaces/interfaces'
 import postCategoryService from '../services/category.services.ts/postCategory.service'
 import getCategoriesService from '../services/category.services.ts/getCategories.service'
 import { Category } from '../entities'
-import getRealEstatesFromCategoryService from '../services/category.services.ts/getAllRealEstates.service'
 import getAllRealEstatesFromCategoryService from '../services/category.services.ts/getAllRealEstates.service'
 
 const postCategoryController = async (

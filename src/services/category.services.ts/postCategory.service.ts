@@ -1,7 +1,6 @@
 
 import { Repository } from "typeorm";
 import { Category } from "../../entities";
-import { AppError } from "../../error";
 import { AppDataSource } from "../../data-source";
 import { TReqPostCategory } from "../../interfaces/interfaces";
 

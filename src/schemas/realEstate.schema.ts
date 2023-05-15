@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { categorySchema } from "./categories.schemas";
 
 
 export const addressSchema = z.object({
@@ -15,7 +14,7 @@ export const addressSchemaRequest = addressSchema.omit({ id: true });
 
 export const realEstateSchema = z.object({
     id: z.number(),
-    value:  z.union([z.string(), z.number()]),
+    value: z.union([z.string(), z.number()]),
     size: z.number().positive(),
     sold: z.boolean().default(false),
     createdAt: z.string(),
@@ -24,7 +23,7 @@ export const realEstateSchema = z.object({
 });
 
 export const postRealEstateSchemaRequest = z.object({
-    value:z.union([z.string(), z.number()]).default(0),
+    value: z.union([z.string(), z.number()]).default(0),
     size: z.number().positive(),
     address: addressSchemaRequest
 }).extend({

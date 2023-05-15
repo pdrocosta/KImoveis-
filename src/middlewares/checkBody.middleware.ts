@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import 'dotenv/config'
-import jwt from 'jsonwebtoken'
 import { ZodTypeAny } from 'zod'
-import { AppError } from '../error'
 
 export const body =
     (schema: ZodTypeAny) =>

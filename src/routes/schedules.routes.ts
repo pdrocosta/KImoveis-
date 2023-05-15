@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import getTokenMiddleware from '../middlewares/getToken.middleware'
 import { body } from '../middlewares/checkBody.middleware'
-import checkSchedule from '../middlewares/1checkSchedule.middleware'
+import checkSchedule from '../middlewares/checkSchedule.middleware'
 import { getAllSchedulesController, postSchedulesController } from '../controllers/schedules.controller'
 import adminMiddleware from '../middlewares/admin.middleware'
 import { postReqScheduleSchema } from '../schemas/schedules.schemas'

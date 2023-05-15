@@ -1,10 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import 'dotenv/config'
-import jwt from 'jsonwebtoken'
-import { ZodTypeAny } from 'zod'
 import { AppError } from '../error'
-import { TRealEstate, TUser } from '../interfaces/interfaces'
-import { RealEstate, User } from '../entities'
+import { User } from '../entities'
 import { AppDataSource } from '../data-source'
 import { Repository } from 'typeorm'
 
@@ -14,9 +11,9 @@ export const checkActive = async (req: Request, resp: Response, next: NextFuncti
 
     const userRepo: Repository<User> =
         AppDataSource.getRepository(User);
- 
-        const user = await userRepo.findOneBy({ id: Number(id) })
-        resp.locals.user = user
+
+    const user = await userRepo.findOneBy({ id: Number(id) })
+    resp.locals.user = user
     if (user?.deletedAt) {
         throw new AppError("User not found", 404);
     }
