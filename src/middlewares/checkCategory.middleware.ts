@@ -9,13 +9,13 @@ import { AppDataSource } from '../data-source'
 import { Repository } from 'typeorm'
 
 
-export const checkCategory = async (req: Request, resp: Response, next: NextFunction): Promise<void> => {
+export const checkCategoryName = async (req: Request, resp: Response, next: NextFunction): Promise<void> => {
     const name = req.body.name
     console.log(name)
     const categoryRepo: Repository<Category> =
         AppDataSource.getRepository(Category);
 
-    const findCategory: boolean = await categoryRepo.exist({ where: { name: name } })
+    const findCategory: Category | null = await categoryRepo.findOneBy({ name: name })
     console.log(findCategory)
 
     if (findCategory) {

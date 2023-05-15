@@ -7,6 +7,7 @@ import { body } from '../middlewares/checkBody.middleware'
 import { userSchemaRequest, userSchemaUpdateRequest } from '../schemas/users.schemas'
 import getTokenMiddleware from '../middlewares/getToken.middleware'
 import ownerMiddleware from '../middlewares/owner.middleware'
+import { checkUserId } from '../middlewares/checkUserId.middleware'
 
 const userRouter: Router = Router()
 
@@ -17,12 +18,12 @@ userRouter.get("", getTokenMiddleware,
     adminMiddleware, getUsersController
 )
 
-userRouter.patch("/:id", body(userSchemaUpdateRequest), getTokenMiddleware,
-    adminMiddleware, ownerMiddleware,checkActive
+userRouter.patch("/:id", body(userSchemaUpdateRequest), getTokenMiddleware, checkUserId,
+    adminMiddleware, ownerMiddleware, checkActive
     , patchUserController
 )
 
-userRouter.delete("/:id", getTokenMiddleware, checkActive,
+userRouter.delete("/:id", getTokenMiddleware, checkActive, checkUserId,
     adminMiddleware, deleteUserController
 )
 

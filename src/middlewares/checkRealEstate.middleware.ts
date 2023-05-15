@@ -9,17 +9,16 @@ const checkRealEstateExists = async (
     res: Response,
     next: NextFunction
 ): Promise<void> => {
-    const realEstateId: number = Number(req.body.realEstate);
-    console.log(realEstateId)
+    const realEstateId: number = Number(req.body.realEstateId);
     const realEstateRepo: Repository<RealEstate> =
         AppDataSource.getRepository(RealEstate);
 
     const realEstateExists: RealEstate | null = await realEstateRepo.findOneBy({
-        id: realEstateId,
-    });
-    console.log(realEstateExists)
 
-    if (!realEstateExists) {
+        id: realEstateId
+    });
+
+    if (realEstateExists == null) {
         throw new AppError("RealEstate not found", 404);
     }
 

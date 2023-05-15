@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { TReqSchedule } from '../interfaces/interfaces'
 import postScheduleService from '../services/schedule.services.ts/postSchedule.service'
 import getAllSchedulesService from '../services/schedule.services.ts/1getAllSchedules.service'
+import { RealEstate } from '../entities'
 
 const postSchedulesController = async (
     req: Request,
@@ -16,13 +17,13 @@ const postSchedulesController = async (
 const getAllSchedulesController = async (
     req: Request,
     res: Response
-): Promise<Response> => {
-
+): Promise<Response<RealEstate | null>> => {
     const id = req.params.id
+    console.log(id)
     const realEstatesByCategory
         = await getAllSchedulesService(Number(id))
-    return res.status(200).json(realEstatesByCategory)
 
+    return res.status(200).json(realEstatesByCategory)
 }
 
 

@@ -3,7 +3,7 @@ import { z } from "zod";
 export const userSchema = z.object({
     id: z.number(),
     name: z.string().max(45),
-    email: z.string(),
+    email: z.string().email().max(45),
     admin: z.boolean().default(false),
     password: z.string().max(120),
     createdAt: z.string(),
@@ -21,10 +21,10 @@ export const userSchemaRequest = userSchema
 
 
 export const userSchemaUpdateRequest = userSchemaRequest
-    .omit({ admin: true})
+    .omit({ admin: true })
     .partial()
 
-    export const loginSchemaUpdateRequest = userSchemaRequest
+export const loginSchemaUpdateRequest = userSchemaRequest
     .omit({ admin: true, name: true })
     .partial()
 

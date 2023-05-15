@@ -3,21 +3,19 @@ import { Repository } from "typeorm";
 import { RealEstate } from "../../entities";
 import { AppDataSource } from "../../data-source";
 import { AppError } from "../../error";
-import { realEstatesResponseSchemas } from "../../schemas/realEstate.schema";
 
 const
   getAllSchedulesService = async (
     id: number
-  ): Promise<any> => {
+  ): Promise<RealEstate | null> => {
 
     const realEstateRepo: Repository<RealEstate> =
       AppDataSource.getRepository(RealEstate);
 
-    const existsRealEstate: boolean = await realEstateRepo.exist({
-      where: { id: id },
+    const existsRealEstate: RealEstate | null = await realEstateRepo.findOneBy({
+      id: id,
     });
-
-    if (!existsRealEstate) {
+    if (existsRealEstate == null) {
       throw new AppError("RealEstate not found", 404);
     }
 
@@ -28,14 +26,11 @@ const
       .innerJoinAndSelect("realEstate.schedules", "schedules")
       .innerJoinAndSelect("schedules.user", "user")
       .where("realEstate.id = :realEstateId", {
-        realEstateId: id,
+        realEstateId: Number(id),
       })
       .getOne();
 
-    const verifiedRealEstates = realEstatesResponseSchemas.parse(realEstateData)
-
-    return verifiedRealEstates;
-
+    return realEstateData;
 
   };
 

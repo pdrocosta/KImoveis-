@@ -4,6 +4,7 @@ import postCategoryService from '../services/category.services.ts/postCategory.s
 import getCategoriesService from '../services/category.services.ts/getCategories.service'
 import { Category } from '../entities'
 import getRealEstatesFromCategoryService from '../services/category.services.ts/getAllRealEstates.service'
+import getAllRealEstatesFromCategoryService from '../services/category.services.ts/getAllRealEstates.service'
 
 const postCategoryController = async (
     req: Request,
@@ -30,8 +31,8 @@ const getRealEstatesFromCategoryController = async (
     const id = req.params.id
     console.log(id)
 
-    const realEstatesByCategory: TRealEstatesByCategory
-        = await getRealEstatesFromCategoryService(Number(id))
+    const realEstatesByCategory
+        = await getAllRealEstatesFromCategoryService(Number(id))
     return res.status(200).json(realEstatesByCategory)
 }
 

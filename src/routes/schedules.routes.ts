@@ -7,11 +7,11 @@ import adminMiddleware from '../middlewares/admin.middleware'
 import { postReqScheduleSchema } from '../schemas/schedules.schemas'
 import checkRealEstateExists from '../middlewares/checkRealEstate.middleware'
 
+
 const schedulesRouter: Router = Router()
 
-schedulesRouter.post("/schedules", body(postReqScheduleSchema),
-    getTokenMiddleware, checkRealEstateExists, checkSchedule
-    , postSchedulesController
+schedulesRouter.post("",
+    getTokenMiddleware, body(postReqScheduleSchema), checkRealEstateExists, checkSchedule, postSchedulesController
 )
 
 schedulesRouter.get("/realEstate/:id", getTokenMiddleware,

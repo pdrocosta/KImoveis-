@@ -16,19 +16,17 @@ export const checkActive = async (req: Request, resp: Response, next: NextFuncti
 
     const userRepo: Repository<User> =
         AppDataSource.getRepository(User);
-    if (id) {
+ 
         const user = await userRepo.findOneBy({ id: Number(id) })
         resp.locals.user = user
-        if (user!.deletedAt) {
-            throw new AppError("User not found", 404);
-        }
-
-        return next()
+    if (user?.deletedAt) {
+        console.log()
+        throw new AppError("User not found", 404);
     }
-
     if (id!) {
         const user = await userRepo.findOneBy({ email: req.body.email })
         console.log(user)
+        resp.locals.user = user
         if (user?.deletedAt) {
             throw new AppError("User not found", 404)
         }
@@ -36,7 +34,7 @@ export const checkActive = async (req: Request, resp: Response, next: NextFuncti
         resp.locals.user = user
         console.log(resp.locals)
 
-        return next()
+
     }
     return next()
 }
